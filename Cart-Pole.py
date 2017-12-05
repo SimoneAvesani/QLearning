@@ -71,7 +71,7 @@ class Q_learning:
 
         self.q[cart_pos][cart_speed][angle][angle_speed][action] = pv + learning_rate * (av + alpha * max(self.q[cart_pos, cart_speed, angle, angle_speed, :]) - pv)  # aggiornamento matrice dei reward      
     
-        text_file.write("{0}\n".format(self.q[49][49][52][49][1]))     #np.amax(q)  q[s][j][k][n][m]
+        #text_file.write("{0}\n".format(self.q[49][49][52][49][1]))     #np.amax(q)  q[s][j][k][n][m]
         return state, angle, cart_pos #angle_speed 
 
 
@@ -89,7 +89,7 @@ class Q_learning:
         return i  # optimal choice taken
 
 
-text_file = open("Output.txt","w")
+#text_file = open("Output.txt","w")
 print(DIM_P)
 r = np.zeros((DIM_P, DIM_P, DIM_P, DIM_P, 2))
 q = np.zeros_like(r)
@@ -109,7 +109,7 @@ for i in range(NUM_EP):
         state_temp, angle, position = agent.alg_q(state_temp)   
         if angle >= DIM_P / 5 * 4 or angle <= DIM_P / 5 or position <= DIM_P / 3 +10 or position >= DIM_P / 4*3 - 10:
             break 
-text_file.close()
+#text_file.close()
 env.close()    
 
 
