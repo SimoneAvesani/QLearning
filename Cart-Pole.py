@@ -26,11 +26,13 @@ class Q_learning:
         self.q = q
 
     def gen_matrix(self, cart_pos, cart_speed, angle, angle_speed, action):
-        '''  '''
+        '''
+        Generzione matrice r dei reward 
+        '''
         print('genero una matrice')
-        DIM_P = cart_pos
+        DIM_P = cart_pos        #inizializzazione DIM_P a 100
         matrix = np.zeros((cart_pos, cart_speed, angle, angle_speed, action))  # [cart_pos, cart_speed, angle, angle_speed, action]
-        matrix = matrix - 1;
+        matrix = matrix - 1;       #inizializzazione matrice a -1
         optimal = DIM_P / 2
         matrix[optimal, optimal, optimal, optimal, :] = MAX_REWARD
         suboptimal = [DIM_P / 4, DIM_P / 4 * 2 - 1, DIM_P / 4 * 2 + 1, DIM_P / 4 * 3]    
@@ -66,8 +68,8 @@ class Q_learning:
 
         print("angle rad: ", observation[2], "\nangle interp:", angle)
         state = (cart_pos, cart_speed, angle, angle_speed)     # inizializzazione stato presente
-        av = self.r[cart_pos][cart_speed][angle][angle_speed][action]        
-        pv = self.q[cart_pos][cart_speed][angle][angle_speed][action]
+        av = self.r[cart_pos][cart_speed][angle][angle_speed][action]        #assegnamento ad av del reward della matrice r nello stato presente
+        pv = self.q[cart_pos][cart_speed][angle][angle_speed][action]        #assegnamento a pv del reward della matrice q nello stato presente
 
         self.q[cart_pos][cart_speed][angle][angle_speed][action] = pv + learning_rate * (av + alpha * max(self.q[cart_pos, cart_speed, angle, angle_speed, :]) - pv)  # aggiornamento matrice dei reward      
     
@@ -76,16 +78,16 @@ class Q_learning:
 
 
     def exploration(self, state): 
-        actions = [0,1]    
+        actions = [0,1]       #lista azioni eseguibili
         epsilon = 0.3
         random_state = random.random()
         i = int()
-        if random_state < epsilon:
-            random.shuffle(actions)
+        if random_state < epsilon:    #se un numero random è minore di epsilon
+            random.shuffle(actions)   #scelgo un'azione random
             i = actions[0]
             epsilon = epsilon - 0.001
         else:
-            i = np.argmax(self.q[state])       
+            i = np.argmax(self.q[state])       #scelgo l'azione che porta ad un reward maggiore
         return i  # optimal choice taken
 
 
@@ -93,21 +95,20 @@ class Q_learning:
 print(DIM_P)
 r = np.zeros((DIM_P, DIM_P, DIM_P, DIM_P, 2))
 q = np.zeros_like(r)
-agent = Q_learning(r,q)
-agent.r = agent.gen_matrix(DIM_P, DIM_P, DIM_P, DIM_P, 2)
-agent.q = np.zeros_like(agent.r)
-print(agent.r[50, 50, 50, 50, 1])
+agent = Q_learning(r,q)    #creazione oggetto agent
+agent.r = agent.gen_matrix(DIM_P, DIM_P, DIM_P, DIM_P, 2)  #inizializzazione matrice r dell'oggetto agent
+agent.q = np.zeros_like(agent.r)        #inizializzazione matrice q dell'oggeto agent
 state_temp = (0, 0, 0, 0)  # initial state 7
 
 
 for i in range(NUM_EP):
     observation = env.reset()
-#    text_file.write("Episode #" + str(i) + "\n");
+   #text_file.write("Episode #" + str(i) + "\n");
     print("Episode #" + str(i));
     for z in range(NUM_T):
         env.render()
-        state_temp, angle, position = agent.alg_q(state_temp)   
-        if angle >= DIM_P / 5 * 4 or angle <= DIM_P / 5 or position <= DIM_P / 3 +10 or position >= DIM_P / 4*3 - 10:
+        state_temp, angle, position = agent.alg_q(state_temp)  #invocazione metodo alg_q  
+        if angle >= DIM_P / 5 * 4 or angle <= DIM_P / 5 or position <= DIM_P / 3 +10 or position >= DIM_P / 4*3 - 10:  #condizione di stop
             break 
 #text_file.close()
 env.close()    
