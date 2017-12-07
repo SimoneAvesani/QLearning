@@ -29,12 +29,11 @@ class Q_learning:
         '''
         Generzione matrice r dei reward 
         '''
-        print('genero una matrice')
         DIM_P = cart_pos        #inizializzazione DIM_P a 100
         matrix = np.zeros((cart_pos, cart_speed, angle, angle_speed, action))  # [cart_pos, cart_speed, angle, angle_speed, action]
         matrix = matrix - 1;       #inizializzazione matrice a -1
-        optimal = DIM_P / 2
-        matrix[optimal, optimal, optimal, optimal, :] = MAX_REWARD
+        optimal = DIM_P / 2        #inizializzazione ottimo a 50
+        matrix[optimal, optimal, optimal, optimal, :] = MAX_REWARD   #inizializzazione stato ottimo
         suboptimal = [DIM_P / 4, DIM_P / 4 * 2 - 1, DIM_P / 4 * 2 + 1, DIM_P / 4 * 3]    
         matrix[:, :, suboptimal[0]:suboptimal[1], :, 0] = MAX_REWARD / 3
         matrix[:, :, suboptimal[2]:suboptimal[3], :, 1] = MAX_REWARD / 3
@@ -42,7 +41,7 @@ class Q_learning:
         matrix[:, :, suboptimal[3] + 1: suboptimal[3] + DIM_P / 6, :, 1] = MAX_REWARD / 10
         matrix[optimal, optimal, suboptimal[2]:optimal, optimal+1:suboptimal[3], 1] = MAX_REWARD/2
         matrix[optimal, optimal, optimal:suboptimal[3], suboptimal[2]:optimal-1, 0] = MAX_REWARD/2
-        return matrix 
+        return matrix   #matrice dei reward
 
 
     def alg_q(self, state): 
@@ -92,13 +91,12 @@ class Q_learning:
 
 
 #text_file = open("Output.txt","w")
-print(DIM_P)
-r = np.zeros((DIM_P, DIM_P, DIM_P, DIM_P, 2))
-q = np.zeros_like(r)
+r = np.zeros((DIM_P, DIM_P, DIM_P, DIM_P, 2))   #inizializzazione matrice r a 0
+q = np.zeros_like(r)       #inizializzazione matrice q a 0
 agent = Q_learning(r,q)    #creazione oggetto agent
 agent.r = agent.gen_matrix(DIM_P, DIM_P, DIM_P, DIM_P, 2)  #inizializzazione matrice r dell'oggetto agent
 agent.q = np.zeros_like(agent.r)        #inizializzazione matrice q dell'oggeto agent
-state_temp = (0, 0, 0, 0)  # initial state 7
+state_temp = (0, 0, 0, 0)  #stato iniziale
 
 
 for i in range(NUM_EP):
