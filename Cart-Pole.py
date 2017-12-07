@@ -30,7 +30,7 @@ class Q_learning:
         Generzione matrice r dei reward 
         '''
         DIM_P = cart_pos        #inizializzazione DIM_P a 100
-        matrix = np.zeros((cart_pos, cart_speed, angle, angle_speed, action))  # [cart_pos, cart_speed, angle, angle_speed, action]
+        matrix = np.zeros((cart_pos, cart_speed, angle, angle_speed, action))  
         matrix = matrix - 1;       #inizializzazione matrice a -1
         optimal = DIM_P / 2        #inizializzazione ottimo a 50
         matrix[optimal, optimal, optimal, optimal, :] = MAX_REWARD   #inizializzazione stato ottimo
@@ -45,8 +45,13 @@ class Q_learning:
 
 
     def alg_q(self, state): 
+        '''
+        alg_q riceve in ingresso lo stato presente, al suo interno viene scelta l'azione prossima,
+        vengono aggiornati i reward nella matrice.
+        Il metodo ritorna il nuovo stato, l'angolo d'inclinazione del pole e la posizione del cart. 
+        '''
         alpha = 0.9
-        learning_rate = 1
+        learning_rate = 1   #inizializzazione learning rate
 
         action = self.exploration(state)  # invocazione exploration
         observation, reward, done, info = env.step(action)     #passo futuro
@@ -72,11 +77,12 @@ class Q_learning:
 
         self.q[cart_pos][cart_speed][angle][angle_speed][action] = pv + learning_rate * (av + alpha * max(self.q[cart_pos, cart_speed, angle, angle_speed, :]) - pv)  # aggiornamento matrice dei reward      
     
-        #text_file.write("{0}\n".format(self.q[49][49][52][49][1]))     #np.amax(q)  q[s][j][k][n][m]
-        return state, angle, cart_pos #angle_speed 
-
+        return state, angle, cart_pos  
 
     def exploration(self, state): 
+        '''
+         Riceve in ingresso lo stato presente e ritorna l'azione prossima 
+        '''
         actions = [0,1]       #lista azioni eseguibili
         epsilon = 0.3
         random_state = random.random()
@@ -87,10 +93,9 @@ class Q_learning:
             epsilon = epsilon - 0.001
         else:
             i = np.argmax(self.q[state])       #scelgo l'azione che porta ad un reward maggiore
-        return i  # optimal choice taken
+        return i  #azione da compiere
 
 
-#text_file = open("Output.txt","w")
 r = np.zeros((DIM_P, DIM_P, DIM_P, DIM_P, 2))   #inizializzazione matrice r a 0
 q = np.zeros_like(r)       #inizializzazione matrice q a 0
 agent = Q_learning(r,q)    #creazione oggetto agent
@@ -100,15 +105,13 @@ state_temp = (0, 0, 0, 0)  #stato iniziale
 
 
 for i in range(NUM_EP):
-    observation = env.reset()
-   #text_file.write("Episode #" + str(i) + "\n");
+    observation = env.reset() 
     print("Episode #" + str(i));
     for z in range(NUM_T):
         env.render()
         state_temp, angle, position = agent.alg_q(state_temp)  #invocazione metodo alg_q  
         if angle >= DIM_P / 5 * 4 or angle <= DIM_P / 5 or position <= DIM_P / 3 +10 or position >= DIM_P / 4*3 - 10:  #condizione di stop
             break 
-#text_file.close()
 env.close()    
 
 
