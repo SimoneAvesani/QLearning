@@ -1,0 +1,134 @@
+\documentclass[]{report}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfauthor={Avesani Simone},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+
+\title{An empirical study of multi-agent RL approaches}
+\author{Avesani Simone}
+\date{}
+
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+
+
+\chapter{Introduction}
+Da scrivere ....
+\chapter{Reinforcement Learnig}\label{reinforcement-learnig}
+
+One of the foundamental concept of the Artificial Intelligence is the
+\emph{Learning}, with which agents can improve their behavior through
+diligent study of their own experience. The idea behind learning is that
+percepts should be used not only for acting, but also for improving the
+agent's ability to act in the future. In this context we find different
+approaches: an agent can learn with a supervised approach by being given
+examples of game situations along with the best moves for those
+situations, but it is not always the best approach because if there is
+no friendly teacher who provides examples the agent can learn only
+trying random moves. In this case we can understand that without some
+feedback about what is good and what is bad, the agent will have no
+grounds for deciding which move to make. The agent needs to know that
+something good has happend when it wins and something bad has happend
+when it loses, that is the simple idea at the base of Reinforcement
+Learning. With RL we are able to examine how an agent can learn form
+success and failure, from reward and punishment. Agent's feedback is the
+core of this approach, and its kind is called \emph{reward}. Depending
+on the environment, the reward could be recieved only at the end of the
+game or more frequently. The task of RL is to use observed rewards to
+learn an optimal policy for the environment and in many complex domains,
+it is the only feasible way to train a program to perform at high level.
+
+In RL we can adopt two different approaches:
+
+\begin{itemize}
+
+\item
+  \textbf{Passive} approach where the agent's policy pi is fixed: in
+  state \emph{s} it always execute pi
+\item
+  \textbf{Active} approach where the agent's policy pi is not fixed and
+  the agent must decide what actions to take.
+\end{itemize}
+
+\section{Active Reinforcement
+Learning}\label{active-reinforcement-learning}
+
+In Active Reinforcement Learning, the agent has not a fixed policy,
+first it will need to learn a complete model with outcome probabilities
+for all actions, rather than just the model for the fixed policy. Next,
+we need to take into account the fact that the agent has a choice of
+actions. All the utilities that the agent need to learn are those
+defined by the \emph{optimal} policy defined by Bellman equation:
+\begin{equation*}
+	U^+(s)\leftarrow R(s)+\gamma \max_a f \bigl( \sum_{s'} \bigr T(s,a,s') U^+(s'), N(a,s))
+\end{equation*} 
+
+The agent, having obtained a utility function U that is optimal for the
+model learned, can extract an optional action by one-step look ahead to
+maximize the expected utility alternatively, if the policy is already
+avaible, it should simply execute the action the optimal policy
+recommends.
+
+\subsubsection{Exploration and
+Exploitation}\label{exploration-and-exploitation}
+
+One of the most important concept in the \emph{Active Reinforcement
+Learning} is the trade-off between \emph{exploration} and
+\emph{exploitation}.\\
+The agent has overlooked that actions do more than provide rewards
+according to the current learned model; they also contribute to learning
+the true model by affecting the percepts that are received. By improving
+the model, the agent will receive grater rewards in the future therefore
+it must make a trade-off between \textbf{exploitation} to maximize its
+reward and \textbf{exploration} to maximize its long-term well-being.\\
+Pure \emph{exploitation} risks getting stuck in a rut. Pure
+\emph{exploration} to improve one's knowledge is of no use if one never
+puts that knowledge into practice.\\
+The function \emph{f(u,n)} in Bellman equation, is called
+\textbf{exploration function} and it determines how greed (preference
+for high values of u) is traded off against curiosity (preference for
+low values of n-actions that have not been tried often).
+
+\section{Temporal difference learning}
+Another important class of RL's algorithms is \textbf{TD} class that is trasversal to the concepts of \emph{passive} and \emph{active} reinforcement learning.
+TD algorithms are based on this idea: using the observed transiotions to adjust the values of the observed states so that they agree with the constraint equations.
+In this work we analyse and discuss about one of the most used active TD algorithm in RL called \textbf{Q-learning}.
+
+\chapter{Q-Learning}
+
+Now that we have introduced the concepts of: \emph{Reinforcement Learning}, \emph{Active RL} and \emph{Temporal difference learnig} we can analyse one RL's algorithm called \textbf{Q-learning}.
+It belongs to the class of \emph{Active RL} because ... and also to the class of \emph{Temporal difference learnig}, in fact
+
+
+
+\end{document}
