@@ -264,15 +264,15 @@ The function \emph{step} in this environment return four different measures thos
 \end{itemize}
 
 All these features are very important and before to implementing our algorithm we need to have a good understanding of them because, in the environment, they determine the reward of Cart Pole actions.\\
-In the environments of Open AI another important concept is the episode.  We'll call each exploration an episode.  Each of them consists of the agent moving from the initial state to the goal state.  Each time the agent arrives at the goal state, the program goes to the next episode.\\
-Open AI environments already have default values as reward but an interesting thing that we can try is to change reward's values for the actions of Cart Pole.\\
+In the environments of Open AI another important concept is the episode.  We'll call with this name each exploration.  Each episode  consists of the agent moving from the initial state to the goal state.  Each time the agent arrives at the goal state, the program goes to the next episode.\\
+Open AI environments already have default values as reward but an interesting thing that we can try is to change reward values for the actions of Cart Pole.\\
 In this way we can test the efficiency of our algorithm and also valorize different states from those of default.
 
 \subsection{MsPacman-v0}
-After working on a simple environment as \emph{CartPole-v0} where the Cart's and Pole's movements are limited at only two different directions (left and right), we tried \emph{Q-Learning} on a more complex environment as \emph{MsPacman-v0}.
+After working on a simple environment as \emph{CartPole-v0} where movements of the Cart's and Pole's are limited at only two different directions (left and right), we tried \emph{Q-Learning} on a more complex environment as \emph{MsPacman-v0}.
 In this environment the agent can move in four different directions and also it has to find the best way to maximize the number of points eaten running away from monsters in the map.\\
 In this case the reward returned by function \emph{step} is not a value or a tuple of values as in \emph{CartPole-v0}'s environment, but it is an RGB image of the screen, which is an array of shape (210, 160, 3).
-Work with an RGB could be more difficult in particular if we want to change reward's values beacause we have to elaborate a new image manually starting from the model of the environment.\\
+Work with an RGB could be more difficult in particular if we want to change values of rewards because we have to elaborate a new image manually starting from the model of the environment.\\
 \\\\\\\\\\\\
 \begin{center}
 	\includegraphics[width=7cm,height=7cm,,keepaspectratio]{MsPacman.png}
@@ -286,7 +286,7 @@ The world created is called \textbf{Wumpus}, it was introduced by Genesereth, an
 The wumpus world is a cave consisting of rooms connected by passageways. Lurking somewhere in the cave is the terrible wumpus, a beast that eats anyone who enters its room. The wumpus can be shot by an agent, but the agent has only one arrow. Some rooms contain bottomless pits that will trap anyone who wanders into these rooms (except for the wumpus, which is too big to fall in). The only mitigating feature of this bleak environment is the of finding a heap of gold. The game ends either when the agent dies (falling into a pit or being eaten by the wumpus) or when the agent climbs out of the cave.\\
 Performance measure are:
 \begin{itemize}
-	\item +1000 for climbing out of the cave with the gold
+	\item +1000 for climbing out of the cave with gold
 	\item -1000 for falling into a pit or being eaten by the wumpus
 	\item -1 for each action taken
 	\item -10 for using up the arrow
@@ -297,11 +297,11 @@ The actions that our agent can do are:
 \vspace{5 mm}
 \begin{itemize}
 	\item 'Forward' (F): moves the agent forward of one cell (walls are blocking)
-	\item 'TurnLeft' by 90 (L)
-	\item 'TurnRight' by 90 (R)
-	\item 'GrabGold' (G): pick up the gold if it is in the same cell as the agent
-	\item 'ShootArrow' (S): fires an arrow in a straight line in the direction of the agent is facing. The arrow continues until it either hits (and hece kills) the wumpus or hits a wall. The agent has only 1 arrow.
-	\item 'ClimbOut' (C): climbs out of the cave	   
+	\item 'Turn Left' by 90 (L)
+	\item 'Turn Right' by 90 (R)
+	\item 'Grab Gold' (G): pick up the gold if it is in the same cell as the agent
+	\item 'Shoot Arrow' (S): fires an arrow in a straight line in the direction of the agent is facing. The arrow continues until it either hits (and hece kills) the wumpus or hits a wall. The agent has only 1 arrow.
+	\item 'Climb Out' (C): climbs out of the cave	   
 \end{itemize}
 
 \vspace{7 mm}
@@ -309,9 +309,9 @@ Finally we have the agent perceptions:
 \vspace{5 mm}
 
 \begin{itemize}
-  \item In the square containing the wumpus (W) and in the directly (not diagonally) adjacent squares, the agent will perceive a 'Stench' (S)
+  \item In the square containing wumpus (W) and in the directly (not diagonally) adjacent squares, the agent will perceive a 'Stench' (S)
   \item In the squares directly (not diagonally) adjacent to a pit (P), the agent will perceive a 'Breeze' (B)
-  \item In the square where the gold (G) is, the agent wil perceive a 'Glitter'
+  \item In the square where  gold (G) is, the agent will perceive a 'Glitter'
   \item When an agent walks into a wall, it will perceive a 'Bump'
   \item When the wumpus is killed, it emits a woeful 'Scream' that can be perceived anywhere in the cave
 \end{itemize}
