@@ -46,14 +46,17 @@
 
 
 \chapter{Introduction}
-Da scrivere ....
+Today Artificial Intelligence is one of the most important topics in Computer Science, a lot of systems in our daily life are based on AI algorithms such as automated financial markets, smart grids, robotics or urban and air traffic control.\\
+In this work we try to analyze one of the foundation of AI: the \emph{Learning}; in particular we focused on the \emph{Reinforcement Learning} (RL) approach analyzing one algorithm called \emph{Q-Learning} and implementing it with the support of a platform made by Open AI's research group.\\
+In the second part of this thesis we try to analyze how we can use the RL approach in a Multi-Agent case. We deal why the major part of single-agent algorithm of RL don't work well in a this case and, finally, we propose the analyze of an efficient Multi-Agent algorithm called \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} also trying to use it in a simple environment.
+
 \chapter{Reinforcement Learnig}\label{reinforcement-learnig}
 
 One foundamental concept of the Artificial Intelligence is the
 \emph{Learning}, with which agents can improve their behavior through
 diligent study of their own experience. The idea behind learning is that
 percepts should be used not only for acting, but also for improving the
-agent's ability to act in the future. In this context we find different
+ability of the agent to act in the future. In this context we find different
 approaches: an agent can learn with a supervised approach by being given
 examples of game situations along with the best moves for those
 situations, but it is not always the best approach because if there is
@@ -64,9 +67,9 @@ grounds for deciding which move to make. \\The agent needs to know that
 something good has happend when it wins and something bad has happend
 when it loses, that is the simple idea at the base of Reinforcement
 Learning.\\ With RL we are able to examine how an agent can learn form
-success and failure, from reward and punishment. Agent's feedback is the
+success and failure, from reward and punishment. Agent feedback is the
 core of this approach, and its kind is called \emph{reward}. Depending
-on the environment, the reward could be recieved only at the end of the
+on the environment, the reward could be received only at the end of the
 game or more frequently.\\ The task of RL is to use observed rewards to
 learn an optimal policy for the environment and, in many complex domains,
 it is the only feasible way to train a program to perform at high level.
@@ -102,8 +105,7 @@ maximize the expected utility alternatively, if the policy is already
 avaible, it should simply execute the action the optimal policy
 recommends.
 
-\subsubsection{Exploration and
-Exploitation}\label{exploration-and-exploitation}
+\subsubsection{Exploration and Exploitation}\label{exploration-and-exploitation}
 
 One of the most important concept in the \emph{Active Reinforcement
 Learning} is the trade-off between \emph{exploration} and
@@ -115,20 +117,20 @@ the model, the agent will receive grater rewards in the future therefore
 it must make a trade-off between \textbf{exploitation} to maximize its
 reward and \textbf{exploration} to maximize its long-term well-being.\\
 Pure \emph{exploration}  to improve one's knowledge is of no use if one never
-puts that knowledge into practice.\\
+puts that knowledge into practice and pure \emph{exploitation} risks getting stuck in a rut.\\
 The function \emph{f(u,n)} in Bellman equation, is called
 \textbf{exploration function} and it determines how greed (preference
 for high values of u) is traded off against curiosity (preference for
 low values of n-actions that have not been tried often).
 
 \section{Temporal difference learning}
-Another important class of RL's algorithms is \textbf{TD} class that is trasversal to the concepts of \emph{passive} and \emph{active} reinforcement learning.
-TD algorithms are based on this idea: using the observed transiotions to adjust the values of the observed states so that they agree with the constraint equations.
-In this work we analyse and discuss about one of the most used active TD algorithm in RL called \textbf{Q-learning}.
+Another important class of RL's algorithms is TD class that is transversal to the concepts of \emph{passive} and \emph{active} reinforcement learning.
+TD algorithms are based on this idea: using the observed transitions to adjust the values of the observed states so that they agree with the constraint equations.
+In this work we analyze and discuss about one of the most used active TD algorithm in RL called \textbf{Q-learning}.
 
 \section{Q-Learning}
 
-Now that we have introduced the concepts of \emph{Reinforcement Learning}, \emph{Active RL} and \emph{Temporal difference learnig} we can analyse one RL's algorithm called \textbf{Q-learning}.
+Now that we have introduced the concepts of \emph{Reinforcement Learning}, \emph{Active RL} and \emph{Temporal difference learning} we can analyze one RL's algorithm called \textbf{Q-learning}.
 This algorithm, as an Active Reinforcement Learning Algorithm, uses an equation to update for an iteration process that calculates exact Q-values given an estimated model.
 However, \emph{Q-Learning} algorithm, as as a TD learning approach requires no model, in fact the update equations for TD \emph{Q-Learning} is :
 
@@ -136,16 +138,22 @@ However, \emph{Q-Learning} algorithm, as as a TD learning approach requires no m
 		Q(a,s) \leftarrow Q(a,s) + \alpha (R(s) + \gamma \max_a Q(a',s')-Q(a,s))
 \end{equation*}
 
-\emph{Q-learning}  algorithm uses exactly the same explore function used by any other \emph{Active RL} algorithm.
-In a lot of environments the \emph{Q-Learning} agent learn the optimal policy, but does so at a much slower rate than other approsches.\\
+According to this formula, a value assigned to a specific element of matrix Q, is equal to the sum of the Q value in the matrix with the sum of the corresponding value in matrix R and the learning parameter Gamma, multiplied by the maximum value of Q for all possible actions in the next state.\\
+The matrix Q, initialized to zero, represents the memory of what the agent has learned through experience, instead R is the matrix that contains rewards for every action.\\
+With this equation our virtual agent will learn through experience, without a teacher, in fact the agent will explore from state to state until it reaches the goal.
+
+\emph{Q-learning} algorithm uses exactly the same explore function used by any other \emph{Active RL} algorithm.\\
+In a lot of environments the \emph{Q-Learning} agent learn the optimal policy, but does so at a much slower rate than other approaches.\\
 This comparison raises a general question: is it better to learn a model and a utility function or to learn an action-value function with no model?\\
 The intuition is that as the environment becomes more complex, the advantages of a knowledge-based approach become more apparent.
 
+\newpage
+
 \section{ RL Multi-agent }
 Another important concept of RL is the Multi-agent problem.\\
-What happened if we want to make interactive two different agents ? The problem is not so easy but it is very interesting to deal with it for its many applications in our modern life.
+What happened if we want to make interactive two different agents? The problem is not so easy but it is very interesting to deal with it for its many applications in our modern life.
 In fact, the interaction of multiple autonomous agents gives rise to highly dynamic and non-deterministic environments, contributing to the complexity in applications such as automated financial markets, smart grids, or robotics.\\
-Consequently, it becomes essential for the success of the system that the agents can learn their optimal behaviour and adapt to new situations or circumstances.\\
+Consequently, it becomes essential for the success of the system that the agents can learn their optimal behavior and adapt to new situations or circumstances.\\
 In the last years the progress about this topic has been substantial and a lot of different approaches with different efficiencies have been introduced.
 
 \subsection{Indipendent learning}
@@ -163,14 +171,14 @@ They observe the actions of other agents in order to estimate their policy, and 
 Another interesting approach introduced in the analysis of \emph{Multi-agent} systems is Game Theory, a theory of interactive strategic decision making.\\
 The basic idea is that the players are thought of as individually rational, in the sense that each player is perfectly logical and tries to maximize his own payoff, assuming the others are doing likewise.
 Game Theory is based on the concept of \emph{Nash equilibrium}(NE) that can be used to study what players will reasonably choose to do. A set of strategies forms a NE if no single player can do better by unilaterally switching to a different strategy. In other words, each strategy in a NE is a best response against all other strategies in that equilibrium.\\
-In this work I don't use this approach and for this reason I do not intend to go further into this concept but if you want deepen it more you can read \emph{Essentials of Game Theory} written by Kevin Leyton-Brown, free on the web.
+In this work we don't use this approach and for this reason we do not intend to go further into this concept but if you want deepen it more you can read \emph{Essentials of Game Theory} written by Kevin Leyton-Brown, free on the web.
 
 \section{Limits of Multi-agent approaches}
 As seen before, there are many different approaches to use in Multi-agent context and often decide how to use could be very difficult because the final result and get the best policy depends, in many situations from the problem we are facing.\\
-Using traditional RL approaches as \emph{Q-Learning} could be some problems, the most important of them is that: each agent’s policy is changing as training progresses, and the environment becomes non-stationary from the perspective of any individual agent (in a way that is not explainable by changes in the agent’s own policy).\\
+Using traditional RL approaches as \emph{Q-Learning} could be some problems, the most considerable of them is that each agent’s policy is changing as training progresses, and the environment becomes non-stationary from the perspective of any individual agent (in a way that is not explainable by changes in the agent’s own policy).\\
 This presents learning stability challenges and prevents the straightforward use of past experience replay, which is crucial for stabilizing \emph{Q-Learning} algorithm.
 The research about Multi-agent problem brings new approaches every day, one of them has been introduced by some Open AI researchers and it is called \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments}.
-During my work I tried to deepen this algorithm as much as i can , also implementing an environment where testing it.
+During our work we tried to deepen this algorithm as much as we can , also implementing an environment where testing it.
 
 \section{Multi-Agent Actor-Critic for Mixed	Cooperative-Competitive Environments}
 \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} algorithm was born from the requirement to have a Multi-agent algorithm that works well in such settings, differently from previous algorithm as \emph{Q-Learning} or \emph{policy gradient} methods.
@@ -181,16 +189,36 @@ It operates under the following constraints:
 	\item it does not assume any particular structure on the communication method between agents.
 \end{itemize}
 
+\vspace{5 mm}
+
 It would be a general-purpose multi-agent learning algorithm that could be applied not just to cooperative games with explicit communication channels, but competitive games and games involving only physical interactions between agents.
 The algorithm accomplishes its goal by adopting the framework of centralized training with decentralized execution, thus it the policies using extra information to ease training, so long as this information is not used at test time.\\
 It is unnatural to do this with \emph{Q-Learning} because Q function generally cannot contain different information at training and test time, for this reason the algorithm is a simple extension of actor- critic policy gradient methods.
-For a more detailed analyses of \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} algorithm you can the article where it is proposed    (\url{https://papers.nips.cc/paper/7217-multi-agent-actor-critic-for-mixed-cooperative-competitive-environments.pdf}).
-
-\vspace{30 mm}
+For a more detailed analyses of \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} algorithm you can read the article where it is proposed    (\url{https://papers.nips.cc/paper/7217-multi-agent-actor-critic-for-mixed-cooperative-competitive-environments.pdf}).
+%\vspace{30 mm}
 
 \begin{center}
 	\includegraphics[width=7cm,height=7cm,,keepaspectratio]{MADDPG.png}
 \end{center}
+
+\vspace{10 mm}
+
+To support the efficiency of this approach, it was tested in comparison to other traditional RL approaches on cooperative communication.\\ Models were trained until convergence and then were evaluated averaging various metrics for 1000 further iterations.\\
+In the figure below we can observe the reward of MADDPG against traditional RL approaches.
+\vspace{10 mm}
+
+\begin{center}
+	\includegraphics[width=10cm,height=10cm,,keepaspectratio]{Results.png}
+\end{center}
+\vspace{10 mm}
+In particular Open AI researchers examined a simple cooperative communication scenario and they observed that the listener learns to ignore the speaker and simply moves to the middle of all observed landmarks.
+This problem is exacerbated as the number of time steps grows: they observed that traditional policy
+gradient methods can learn when the objective of the listener is simply to reconstruct the observation
+of the speaker in a single time step, or if the initial positions of agents and landmarks are fixed and
+evenly distributed. This indicates that many of the multi-agent method in scenarios with short time horizons may not generalize to more complex tasks.\\
+Conversely, MADDPG agents can learn coordinated behaviour more easily in fact in the cooperative communication environment, MADDPG is able to reliably learn the correct listener and speaker policies, and the listener is  very often able to navigate to the target.
+
+
 
 
 
@@ -199,7 +227,7 @@ For a more detailed analyses of \emph{Multi-Agent Actor-Critic for Mixed Coopera
 \section{Q-Learning}
 The Open AI company of research has made available a toolkit called \emph{Open AI gym} where people could 
 develop and compare RL algorithms.
-I used this toolkit to develop and test \emph{Q-Learning} algorithm on different environments already created and proposed by Open AI company. \\
+We used this toolkit to develop and test \emph{Q-Learning} algorithm on different environments already created and proposed by Open AI company. \\
 \emph{Gym} library contains a lot of different environments with different levels of complexity that are divided in four different categories:
 \begin{itemize}
 	\item Classic control
@@ -215,9 +243,9 @@ The algorithm implemented could be interfaced with each environment through thre
 	\item \textbf{Reset}: restart the environment;
 \end{itemize}
 
-Understand these methods and what they returns is essential to interfacing RL's algorithms with different environments.
-Another important feature in gym's environments is the \textbf{observation} that is one of the measure returned by \emph{step} and actions' rewards depends totally from this quantity.
-During my work I tested \emph{Q-Learning} algorithm on two different environments: CartPole-v0 and MsPacman-v0.
+Understand these methods and what they returns is essential to interfacing RL algorithms with different environments.
+Another important feature in gym environments is the \textbf{observation} that is one of the measure returned by \emph{step} and actions rewards depends totally from this quantity.
+During the work we tested \emph{Q-Learning} algorithm on two different environments: CartPole-v0 and MsPacman-v0.
 
 \subsection{CartPole-v0}
 \vspace{1ex}
@@ -226,21 +254,22 @@ During my work I tested \emph{Q-Learning} algorithm on two different environment
 \end{center}
 \vspace{2ex}
 
-\emph{CartPole-v0} environment is composed by a pole that is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center.\\
+\emph{CartPole-v0} environment is composed by a pole that is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every time step that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center.\\
 The function \emph{step} in this environment return four different measures those represent:
 \begin{itemize}
 	\item Cart position
-	\item Pole's angle
-	\item Pole's angle speed
+	\item Pole angle
+	\item Pole angle speed
 	\item Cart speed
 \end{itemize}
 
-All these features are very important and before to implementing our algorithm we need to have a good understanding of them because, in the environment, they determine the reward of Cart Pole's actions.
-Open AI's environments already have default values as reward but an interesting thing that we can try is to change reward's values for the actions of Cart Pole.\\
+All these features are very important and before to implementing our algorithm we need to have a good understanding of them because, in the environment, they determine the reward of Cart Pole actions.\\
+In the environments of Open AI another important concept is the episode.  We'll call each exploration an episode.  Each of them consists of the agent moving from the initial state to the goal state.  Each time the agent arrives at the goal state, the program goes to the next episode.\\
+Open AI environments already have default values as reward but an interesting thing that we can try is to change reward's values for the actions of Cart Pole.\\
 In this way we can test the efficiency of our algorithm and also valorize different states from those of default.
 
 \subsection{MsPacman-v0}
-After working on a simple environment as \emph{CartPole-v0} where the Cart's and Pole's movements are limited at only two different directions (left and right), I tried \emph{Q-Learning} on a more complex environment as \emph{MsPacman-v0}.
+After working on a simple environment as \emph{CartPole-v0} where the Cart's and Pole's movements are limited at only two different directions (left and right), we tried \emph{Q-Learning} on a more complex environment as \emph{MsPacman-v0}.
 In this environment the agent can move in four different directions and also it has to find the best way to maximize the number of points eaten running away from monsters in the map.\\
 In this case the reward returned by function \emph{step} is not a value or a tuple of values as in \emph{CartPole-v0}'s environment, but it is an RGB image of the screen, which is an array of shape (210, 160, 3).
 Work with an RGB could be more difficult in particular if we want to change reward's values beacause we have to elaborate a new image manually starting from the model of the environment.\\
@@ -252,7 +281,7 @@ Work with an RGB could be more difficult in particular if we want to change rewa
 \vspace{10 mm}
 
 \subsection{Wumpus}
-To finish my work on \emph{Q-Learning} algorithm I tried to create a new simple environment, similar to those in Open AI gym, where testing the algorithm.\\
+To finish my work on \emph{Q-Learning} algorithm we tried to create a new simple environment, similar to those in Open AI gym, where testing the algorithm.\\
 The world created is called \textbf{Wumpus}, it was introduced by Genesereth, and is discussed in Russell-Norvig book \emph{Artificial Intelligence A Modern Approach}.
 The wumpus world is a cave consisting of rooms connected by passageways. Lurking somewhere in the cave is the terrible wumpus, a beast that eats anyone who enters its room. The wumpus can be shot by an agent, but the agent has only one arrow. Some rooms contain bottomless pits that will trap anyone who wanders into these rooms (except for the wumpus, which is too big to fall in). The only mitigating feature of this bleak environment is the of finding a heap of gold. The game ends either when the agent dies (falling into a pit or being eaten by the wumpus) or when the agent climbs out of the cave.\\
 Performance measure are:
@@ -300,17 +329,61 @@ Perceptions are given to the agent in the form of a tuple of booleans for
 \section{MADDPG}
 In \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} article where the \emph{MADDPG} algorithm is treated, Open AI researchers have included a link to a github repository where we can find an implementation of this algorithm with some different environment where to test it (\url{https://github.com/openai/multiagent-particle-envs}).\\ 
 All the code is written in python language and for this reason it is necessary to have python3 installed on pc and also some libraries as gym and tensorflow.
-To know better how this algorithm works, I try to create a new environment where testing the algorithm.
+To know better how this algorithm works, we try to create a new environment where testing the algorithm.
 The new environment is based on the Wumpus world, in that we have one agent who have to catch the gold (landmark) escaping from one other agent.
 
 
 \chapter{Results Analysis}
-In this section I try to analyze the results of my algorithms implementation.
+%In this section we try to analyze the results of my algorithms implementation.
 
 \section{Q-Learning in CartPole-v0}
+My work on \emph{Q-Learning} approach in CartPole-v0 could be divided in two different part.
+In the first part we tried to implement the \emph{Q-Learning} algorithm and also we tried to verify the consistency of my work analyzing the rewards function, in particular we wanted to verify that the function converged.
+
+\vspace{10 mm}
+
+\begin{center}
+	\includegraphics[width=10cm,height=10cm,,keepaspectratio]{function.png}
+\end{center} 
+
+\vspace{20 mm}
+
+In this image we can observe the development of the function with the passing of trials. As we can see the utility estimated grows up but with the passing of trials it converges on a value.
+Two parameters have an important rule in the evolution of the function alpha and gamma, alpha is called \emph{learning rate} and its value influences the rapidity with which the agent learns, otherwise 
+gamma parameter has a range of 0 to 1 (0 <= Gamma > 1), if gamma is closer to zero, the agent will tend to consider only immediate rewards on the contrary if gamma is closer to one, the agent will consider future rewards with greater weight, willing to delay the reward.
+After this check, in the second part of my analyses, we tried to change rewards of the environment with the objective of valorize different actions.
+The positive result obtained has been another proof that the algorithm works in the right way.
+
+\section{Q-Learning in MsPacman-v0}
+Differently from the analyses made before, testing the algorithm on this environment has been more difficult.
+In this case we had to work with an RGB image where every state of my environment is also a RGB, for this reason, after that we have tested the algorithm on the environment, trying to change the rewards has been very difficult.
+In fact if we want to set a specific reward for a specific action we need to create a RGB frame manually
+and it requires an accurate analysis of the image.
+Also to create manually a frame requires the identification of all elements that compose the image and in particular find dynamic objects require a lot of work.
+We decide to not focus my work on this aspect because probably it would take too much time and it would take me away from the goal of my thesis.
 
 
 
+\begin{thebibliography}{9}
+	\bibitem{t25}
+	\emph{ Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments ---}
+	Ryan Lowe, Yi Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, Igor Mordatch
+	
+	\bibitem{t25}
+	\emph{Artificial Intelligence A Modern Approach ---}
+	Peter Norvig, Stuart J. Russell
+	
+	\bibitem{t25}
+	\emph{Evolutionary Dynamics of Multi-Agent Learning: A Survey ---}
+	Daan Bloembergen, Karl Tuyls, Daniel Hennes, Michael Kaisers
+	
+	\bibitem{t25}
+	\emph{Essentials of Game Theroy}
+	Kevin Leyton-Brown, Yoav Shoham
+	
+	\bibitem{A Painless Q-Learning Tutorial}
+	http://mnemstudio.org/path-finding-q-learning-tutorial.htm
+\end{thebibliography}
 
 
 
