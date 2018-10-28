@@ -50,6 +50,8 @@ Today Artificial Intelligence is one of the most important topics in Computer Sc
 In this work we try to analyze one of the foundation of AI: the \emph{Learning}; in particular we focused on the \emph{Reinforcement Learning} (RL) approach analyzing one algorithm called \emph{Q-Learning} and implementing it with the support of a platform made by Open AI's research group.\\
 In the second part of this thesis we try to analyze how we can use the RL approach in a Multi-Agent case. We deal why the major part of single-agent algorithm of RL don't work well in a this case and, finally, we propose the analyze of an efficient Multi-Agent algorithm called \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} also trying to use it in a simple environment.
 
+AGGIUNGERE LA REPOSITORY
+
 \chapter{Reinforcement Learnig}\label{reinforcement-learnig}
 
 One foundamental concept of the Artificial Intelligence is the
@@ -131,8 +133,8 @@ In this work we analyze and discuss about one of the most used active TD algorit
 \section{Q-Learning}
 
 Now that we have introduced the concepts of \emph{Reinforcement Learning}, \emph{Active RL} and \emph{Temporal difference learning} we can analyze one RL's algorithm called \textbf{Q-learning}.
-This algorithm, as an Active Reinforcement Learning Algorithm, uses an equation to update for an iteration process that calculates exact Q-values given an estimated model.
-However, \emph{Q-Learning} algorithm, as as a TD learning approach requires no model, in fact the update equations for TD \emph{Q-Learning} is :
+This algorithm, as an Active Reinforcement Learning algorithm, uses a learning equation to find the best policy but differently from other RL algorithms it does not need a complete model of the environment, for this reason it is also called \emph{model free} method.
+However,\emph{Q-Learning} algorithm, as TD learning approach , uses the observed transitions to adjust the values of the observed states.\\ The update equations for \emph{Q-Learning} is :
 
 \begin{equation*}
 		Q(a,s) \leftarrow Q(a,s) + \alpha (R(s) + \gamma \max_a Q(a',s')-Q(a,s))
@@ -326,11 +328,14 @@ Perceptions are given to the agent in the form of a tuple of booleans for
 \end{center}
  
 \vspace{30 mm}
+
 \section{MADDPG}
 In \emph{Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments} article where the \emph{MADDPG} algorithm is treated, Open AI researchers have included a link to a github repository where we can find an implementation of this algorithm with some different environment where to test it (\url{https://github.com/openai/multiagent-particle-envs}).\\ 
 All the code is written in python language and for this reason it is necessary to have python3 installed on pc and also some libraries as gym and tensorflow.
 To know better how this algorithm works, we try to create a new environment where testing the algorithm.
-The new environment is based on the Wumpus world, in that we have one agent who have to catch the gold (landmark) escaping from one other agent.
+The new environment is based on the Wumpus world, in that we have one agent who have to catch the gold (landmark) escaping from one other agent.\\
+To create this environments we took inspiration from the \emph{simple tag} environment and also we used some objects already created as, for examples, the landmarks.
+In the world the agent is awarded based on distance from other agents and also if it collides with the big landmark in the map that represents the gold, on the contrary it is penalize if it collides with adversaries.
 
 
 \chapter{Results Analysis}
@@ -362,7 +367,17 @@ and it requires an accurate analysis of the image.
 Also to create manually a frame requires the identification of all elements that compose the image and in particular find dynamic objects require a lot of work.
 We decide to not focus my work on this aspect because probably it would take too much time and it would take me away from the goal of my thesis.
 
+\section{MADDPG}
+During the work we tested MADDPG algorithm on the environment created and we obtained some interesting results.
 
+\begin{center}
+	\includegraphics[width=10cm,height=10cm,,keepaspectratio]{learning.png}
+\end{center} 
+ 
+The figure represents the learning curve of the agent in particular on axis of x we can find the number of episodes that in this case are 60000 and on the axis of y we can find the total reward of the agent.
+As we can see at the start the reward grows up but after a lot of episodes the value tends to stabilize, so we can ascertain that the algorithm works and the agent learns to interact with other agent in the map.\\
+We can see also that the learning curve is very similar to the Q-Learning function and it also another good news that demonstrate the functionality of the MADDPG algorithm in a Multi-Agent environment.
+To conclude we can observe that the function tends to grow up and stabilize very fast showing the efficiency of this algorithm in opposition to other RL algorithms.
 
 \begin{thebibliography}{9}
 	\bibitem{t25}
